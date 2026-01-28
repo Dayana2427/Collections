@@ -1,19 +1,19 @@
 package calculator
 
-class SimpleCalculator {
-    fun sum(a: Int, b: Int): Int {
+class SimpleCalculator: Calculator {
+    override fun sum(a: Int, b: Int): Int {
         return a + b
     }
 
-    fun rest(a: Int, b: Int): Int {
+    override fun rest(a: Int, b: Int): Int {
         return a - b
     }
 
-    fun multi(a: Int, b: Int): Int {
+    override fun multi(a: Int, b: Int): Int {
         return a * b
     }
 
-    fun div(a: Int, b: Int): Double {
+    override fun division(a: Int, b: Int): Double {
         return a.toDouble() / b
     }
 }

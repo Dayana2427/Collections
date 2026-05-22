@@ -1,8 +1,8 @@
 package collections
 
-class NumbersArrayList : NumbersMutableList {
+class NumbersArrayList(initialCapacity: Int = INITIAL_CAPACITY) : NumbersMutableList {
 
-    private var numbers = arrayOfNulls<Int>(10)
+    private var numbers = arrayOfNulls<Int>(INITIAL_CAPACITY)
 
     override var size: Int = 0
         private set
@@ -11,6 +11,14 @@ class NumbersArrayList : NumbersMutableList {
         growIfNeeded()
         numbers[size] = number
         size++
+    }
+
+    override fun plus(number: Int) {
+        add(number)
+    }
+
+    override fun minus(number: Int) {
+        remove(number)
     }
 
     private fun growIfNeeded(){
@@ -24,6 +32,7 @@ class NumbersArrayList : NumbersMutableList {
     }
 
     override fun add(index: Int, number: Int) {
+        checkIndexForAdding(index)
         growIfNeeded()
         for (i in size downTo index + 1) {
             numbers[i] = numbers[i + 1]
@@ -33,6 +42,7 @@ class NumbersArrayList : NumbersMutableList {
     }
 
     override fun removeAt(index: Int) {
+        checkIndex(index)
         for (i in index until size - 1){
             numbers[i] = numbers[i + 1]
         }
@@ -41,7 +51,7 @@ class NumbersArrayList : NumbersMutableList {
     }
 
     override fun clear() {
-        numbers = arrayOfNulls<Int>(10)
+        numbers = arrayOfNulls<Int>(INITIAL_CAPACITY)
         size = 0
     }
 
@@ -63,7 +73,24 @@ class NumbersArrayList : NumbersMutableList {
          }
     }
 
+    private fun checkIndex(index: Int) {
+        if (index < 0 || index >= size) {
+            throw IndexOutOfBoundsException("Index: $index Size: $size")
+        }
+    }
+
+    private fun checkIndexForAdding(index: Int) {
+        if (index < 0 || index > size) {
+            throw IndexOutOfBoundsException("Index: $index Size: $size")
+        }
+    }
+
     override fun get(index: Int): Int {
+        checkIndex(index)
         return numbers[index]!!
+    }
+
+    companion object {
+        private const val INITIAL_CAPACITY = 10
     }
 }

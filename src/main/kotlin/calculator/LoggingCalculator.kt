@@ -1,15 +1,16 @@
 package calculator
 
 class LoggingCalculator: Calculator {
+
     override fun sum(a: Int, b: Int): Int {
-        val result = a + b +1
-        println("Operaction sum($a, $b). Result: $result")
+        val result = a + b
+        println("Operaction: sum($a, $b). Result: $result")
         return result
     }
 
     override fun rest(a: Int, b: Int): Int {
         val result = a - b
-        println("Operaction rest($a, $b). Result: $result")
+        println("Operaction: rest($a, $b). Result: $result")
         return result
     }
 

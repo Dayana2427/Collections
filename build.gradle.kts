@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter-params:6.0.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:6.0.3")
 }
 
 tasks.test {

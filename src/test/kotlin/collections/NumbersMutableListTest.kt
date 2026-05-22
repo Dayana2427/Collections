@@ -1,6 +1,7 @@
 package collections
 
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 
@@ -48,7 +49,7 @@ class NumbersMutableListTest {
             list.add(it)
         }
         list.add(0, 1000)
-        assertEquals(1000, list.get(0))
+        assertEquals(1000, list[0])
     }
 
     @ParameterizedTest
@@ -58,14 +59,14 @@ class NumbersMutableListTest {
             list.add(it)
         }
         list.add(100, 1000)
-        assertEquals(1000, list.get(100))
+        assertEquals(1000, list[100])
     }
 
     @ParameterizedTest
     @MethodSource("mutableListSource")
     fun`When add 10 element then size 10`(list: NumbersMutableList) {
         repeat(10) {
-           list.add(it)
+           list + it
         }
         assertEquals(10, list.size)
     }
@@ -85,7 +86,7 @@ class NumbersMutableListTest {
         repeat(10) {
             list.add(it)
         }
-        assertEquals(5, list.get(5))
+        assertEquals(5, list[5])
     }
 
     @ParameterizedTest
@@ -94,7 +95,7 @@ class NumbersMutableListTest {
         repeat(100) {
             list.add(it)
         }
-        assertEquals(50, list.get(50))
+        assertEquals(50, list[50])
     }
 
     @ParameterizedTest
@@ -114,7 +115,7 @@ class NumbersMutableListTest {
             list.add(it)
         }
         list.removeAt(50)
-        assertEquals(51, list.get(50))
+        assertEquals(51, list[50])
     }
 
     @ParameterizedTest
@@ -123,9 +124,81 @@ class NumbersMutableListTest {
         repeat(100) {
             list.add(it)
         }
-        list.remove(50)
-        assertEquals(51, list.get(50))
+        list - 50
+        assertEquals(51, list[50])
     }
+
+    @ParameterizedTest
+    @MethodSource("mutableListSource")
+    fun `When method get invoked whit wrong index then exception is throw`(list: NumbersMutableList) {
+        repeat(10) {
+            list.add(it)
+        }
+        assertThrows<IndexOutOfBoundsException> {
+            list[10]
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("mutableListSource")
+    fun `When method get invoked whit negative index then exception is throw`(list: NumbersMutableList) {
+        repeat(10) {
+            list.add(it)
+        }
+        assertThrows<IndexOutOfBoundsException> {
+            list[-10]
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("mutableListSource")
+    fun `When method add invoked whit wrong index then exception is throw`(list: NumbersMutableList) {
+        repeat(10) {
+            list.add(it)
+        }
+        assertThrows<IndexOutOfBoundsException> {
+            list.add(11, 1000)
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("mutableListSource")
+    fun `When method add invoked whit negative index then exception is throw`(list: NumbersMutableList) {
+        repeat(10) {
+            list.add(it)
+        }
+        assertThrows<IndexOutOfBoundsException> {
+            list.add(-1, 100)
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("mutableListSource")
+    fun `When method removeAt invoked whit wrong index then exception is throw`(list: NumbersMutableList) {
+        repeat(10) {
+            list.add(it)
+        }
+        assertThrows<IndexOutOfBoundsException> {
+            list.removeAt(10)
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("mutableListSource")
+    fun `When method removeAt invoked whit negative index then exception is throw`(list: NumbersMutableList) {
+        repeat(10) {
+            list.add(it)
+        }
+        assertThrows<IndexOutOfBoundsException> {
+            list.removeAt(-1)
+        }
+    }
+
+
+
+
+
+
 
 
 

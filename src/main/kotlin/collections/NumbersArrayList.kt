@@ -24,9 +24,7 @@ class NumbersArrayList(initialCapacity: Int = INITIAL_CAPACITY) : NumbersMutable
     private fun growIfNeeded(){
         if (numbers.size == size) {
             val newArray = arrayOfNulls<Int>(numbers.size * 2)
-            for (index in numbers.indices) {
-                newArray[index] = numbers[index]
-            }
+            System.arraycopy(numbers, 0, newArray, 0, size)
             numbers = newArray
         }
     }
@@ -34,18 +32,14 @@ class NumbersArrayList(initialCapacity: Int = INITIAL_CAPACITY) : NumbersMutable
     override fun add(index: Int, number: Int) {
         checkIndexForAdding(index)
         growIfNeeded()
-        for (i in size downTo index + 1) {
-            numbers[i] = numbers[i + 1]
-        }
+        System.arraycopy(numbers, index, numbers, index + 1, size -index)
         numbers[index] = number
         size++
     }
 
     override fun removeAt(index: Int) {
         checkIndex(index)
-        for (i in index until size - 1){
-            numbers[i] = numbers[i + 1]
-        }
+        System.arraycopy(numbers, index + 1, numbers, index, size -index)
         size--
         numbers[size] = null
     }
